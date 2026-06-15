@@ -11,7 +11,10 @@ public class IOU {
         this.amount = amount;
     }
 
-    
+    @Override
+    public String toString() {
+        return creditor.getName() + ", " + debtor.getName() + ", " + amount;
+    }
     
     // GETTERS & SETTERS
 

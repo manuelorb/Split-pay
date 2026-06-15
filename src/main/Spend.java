@@ -117,32 +117,38 @@ public class Spend {
 
 
     private void calculateBalanceSHARE() {
-        int remainder, share, totalShares = 0;
+        int sum = 0, sharePrice, totalShares = 0;
 
         for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
             totalShares += entry.getValue();
         }
 
-        share = totalAmount / totalShares;
-        remainder = totalAmount % totalShares;
-
+        try {
+            sharePrice = totalAmount / totalShares;
+        } catch (Exception e) {
+            sharePrice = 1;
+        }
+        
         for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
-            spendBalance.put(entry.getKey(), entry.getValue() * share);
+            int n = - entry.getValue() * sharePrice;
+            spendBalance.put(entry.getKey(), n);
+            sum += n;
         }
 
-        addRemainderToBalance(remainder);
+        addRemainderToBalance(totalAmount + sum);
         addCreditToBalance();
     }
 
 
     private void calculateBalancePERCENTAGE() {
-        int remainder = 0;
+        int sum = 0;
         for (Person debtor : debtors.keySet()) {
-            if (totalAmount * debtors.get(debtor) % 100 != 0) remainder++;
-            spendBalance.put(debtor, - (totalAmount * debtors.get(debtor) / 100));
+            int n = - (totalAmount * debtors.get(debtor) / 100);
+            sum += n;
+            spendBalance.put(debtor, n);
         }
 
-        addRemainderToBalance(remainder);
+        addRemainderToBalance(totalAmount + sum);
         addCreditToBalance();
     }
 
@@ -160,19 +166,21 @@ public class Spend {
     }
 
     private void calculateBalanceUNEQUAL() {
-        for (Person debtor : debtors.keySet()) {
-            spendBalance.put(debtor, - debtors.get(debtor));
+        for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
+            spendBalance.put(entry.getKey(), - entry.getValue());
         }
 
         addCreditToBalance();
     }
 
     private void addRemainderToBalance(int remainder) {
-        int count = 0;
+        if (remainder <= 0) return;
+        int d = 0;
         Object[] debtorsArray = debtors.keySet().toArray();
         while (remainder > 0) {
-            Person person = (Person) debtorsArray[count++];
+            Person person = (Person) debtorsArray[d % debtorsArray.length];
             spendBalance.merge(person, -1, Integer::sum);
+            d++;
             remainder--;
         }
     }
@@ -246,8 +254,15 @@ public class Spend {
 
         if (
             description == null ||
-            totalAmount <= 0 ||
+            totalAmount == null ||
             type == null ||
+            creditors == null ||
+            debtors == null
+        ) return false;
+
+        if (
+            description.equals("") ||
+            totalAmount <= 0 ||
             creditors.size() < 1 ||
             debtors.size() < 1
         ) return false;
