@@ -70,8 +70,8 @@ public class Group {
             Person creditor = iou.getCreditor();
             Person debtor = iou.getDebtor();
             
-            creditor.addDetail(debtor, iou.getAmount());
-            debtor.addDetail(creditor, - iou.getAmount());
+            creditor.addDetailWithoutChangingBalance(debtor, iou.getAmount());
+            debtor.addDetailWithoutChangingBalance(creditor, - iou.getAmount());
         }
     }
 

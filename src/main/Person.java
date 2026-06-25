@@ -19,7 +19,7 @@ public class Person {
      * @param person
      * @param amount
      */
-    public void addDetail(Person person, Integer amount) {
+    public void addDetailWithoutChangingBalance(Person person, Integer amount) {
         balanceDetails.merge(person, amount, Integer::sum);
         if(balanceDetails.get(person) == 0) balanceDetails.remove(person);
     }
@@ -29,8 +29,8 @@ public class Person {
      * @param person
      * @param amount
      */
-    public void addSpendDetail(Person person, Integer amount) {
-        addDetail(person, amount);
+    public void addDetail(Person person, Integer amount) {
+        addDetailWithoutChangingBalance(person, amount);
         balance += amount;
     }
 

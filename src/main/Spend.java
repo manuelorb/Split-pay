@@ -1,5 +1,6 @@
 package main;
 
+import util.util;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -97,11 +98,7 @@ public class Spend {
 
     
     private void calculateBalanceITEMIZED() {
-        int aux, costPerPerson, remainder, totalItemized = 0;
-        
-        for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
-            totalItemized += entry.getValue();
-        }
+        int aux, costPerPerson, remainder, totalItemized = util.addMapEntrys(debtors);
 
         aux = totalAmount - totalItemized;
         costPerPerson = aux / debtors.size();
@@ -117,11 +114,7 @@ public class Spend {
 
 
     private void calculateBalanceSHARE() {
-        int sum = 0, sharePrice, totalShares = 0;
-
-        for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
-            totalShares += entry.getValue();
-        }
+        int sum = 0, sharePrice, totalShares = util.addMapEntrys(debtors);
 
         try {
             sharePrice = totalAmount / totalShares;
@@ -225,8 +218,8 @@ public class Spend {
             Person creditor = iou.getCreditor();
             Person debtor = iou.getDebtor();
             
-            creditor.addSpendDetail(debtor, iou.getAmount());
-            debtor.addSpendDetail(creditor, - iou.getAmount());
+            creditor.addDetail(debtor, iou.getAmount());
+            debtor.addDetail(creditor, - iou.getAmount());
         }
     }
 
@@ -239,8 +232,8 @@ public class Spend {
             Person creditor = iou.getCreditor();
             Person debtor = iou.getDebtor();
             
-            creditor.addSpendDetail(debtor, - iou.getAmount());
-            debtor.addSpendDetail(creditor, iou.getAmount());
+            creditor.addDetail(debtor, - iou.getAmount());
+            debtor.addDetail(creditor, iou.getAmount());
         }
     }
 
@@ -250,7 +243,8 @@ public class Spend {
      * @return
      */
     public boolean isValid() {
-        int checkCredit = 0, checkDebit = 0;
+        int checkCredit = util.addMapEntrys(creditors);
+        int checkDebit = util.addMapEntrys(debtors);
 
         if (
             description == null ||
@@ -267,12 +261,7 @@ public class Spend {
             debtors.size() < 1
         ) return false;
 
-        for (Map.Entry<Person, Integer> entry : creditors.entrySet()) { checkCredit += entry.getValue(); }
         if (checkCredit != totalAmount) return false;
-
-        for (Map.Entry<Person, Integer> entry : debtors.entrySet()) {
-            checkDebit += entry.getValue();
-        }
 
         switch (type) {
             case SplittingMethod.PAYOFF:
