@@ -7,23 +7,23 @@ import java.util.Map;
 
 public class Group {
     private ArrayList<Person> members;
-    private ArrayList<Spend> SpendHistory;
+    private ArrayList<Action> history;
 
     public Group() {
         this.members = new ArrayList<>();
-        this.SpendHistory = new ArrayList<>();
+        this.history = new ArrayList<>();
     }
 
     public void addMember(Person person) {
         members.add(person);
     }
 
-    public void addSpend(Spend spend) {
-        if (!spend.isValid()) return;
-        SpendHistory.add(spend);
-        spend.calculateBalance();
-        spend.calculateIOUS();
-        spend.sendIOUS();
+    public void addAction(Action a) {
+        if (!a.isValid()) return;
+        history.add(a);
+        a.calculateBalance();
+        a.calculateIOUS();
+        a.sendIOUS();
     }
 
     public void simplifyDebts() {
@@ -85,11 +85,11 @@ public class Group {
         this.members = persons;
     }
 
-    public ArrayList<Spend> getSpendHistory() {
-        return SpendHistory;
+    public ArrayList<Action> getHistory() {
+        return history;
     }
 
-    public void setSpendHistory(ArrayList<Spend> spendHistory) {
-        SpendHistory = spendHistory;
+    public void setHistory(ArrayList<Action> history) {
+        this.history = history;
     }
 }

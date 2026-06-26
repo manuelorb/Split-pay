@@ -41,13 +41,17 @@ public class Person {
         balanceDetails.clear();
     }
 
-    // Console print for testing
-    public void print() {
-        System.out.println("\nMEMBER: " + name + "\nBalance: " + balance + "\ndetails: ");
-        
+    // Print for testing
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(name + " Balance: " + balance + "$\n");
+
         for (Person person : balanceDetails.keySet()) {
-            System.out.println(person.getName() + ": " + balanceDetails.get(person));
+            sb.append(person.getName() + ": " + balanceDetails.get(person) + "\n");
         }
+
+        return sb.toString();
     }
 
     // GETTERS & SETTERS

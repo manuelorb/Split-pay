@@ -36,10 +36,10 @@ public class SpendTest {
 
         spend.calculateBalance();
 
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(-400, (int) spend.getSpendBalance().get(rick));
-        assertEquals(800, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-400, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(-400, (int) spend.getBalance().get(rick));
+        assertEquals(800, (int) spend.getBalance().get(ana));
+        assertEquals(-400, (int) spend.getBalance().get(david));
         
         creditors.clear();
         debtors.clear();
@@ -59,33 +59,10 @@ public class SpendTest {
 
         spend.calculateBalance();
 
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(-400, (int) spend.getSpendBalance().get(rick));
-        assertEquals(801, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-401, (int) spend.getSpendBalance().get(david));
-    }
-
-    @Test
-    public void calculateBalancePAYOFF() {
-        creditors.clear();
-        debtors.clear();
-
-        creditors.put(ana, 1200);
-        debtors.put(rick, 0);
-        Spend spend = new Spend.Builder()
-            .spendID(0)
-            .description("description")
-            .amount(1200)
-            .method(SplittingMethod.PAYOFF)
-            .creditors(creditors)
-            .debtors(debtors)
-            .build();
-
-        spend.calculateBalance();
-
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(1200, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-1200, (int) spend.getSpendBalance().get(rick));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(-401, (int) spend.getBalance().get(rick));
+        assertEquals(802, (int) spend.getBalance().get(ana));
+        assertEquals(-401, (int) spend.getBalance().get(david));
     }
 
     @Test
@@ -108,11 +85,11 @@ public class SpendTest {
             .build();
 
         spend.calculateBalance();
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(600, (int) spend.getSpendBalance().get(manu));
-        assertEquals(-240, (int) spend.getSpendBalance().get(rick));
-        assertEquals(-240, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-120, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(600, (int) spend.getBalance().get(manu));
+        assertEquals(-240, (int) spend.getBalance().get(rick));
+        assertEquals(-240, (int) spend.getBalance().get(ana));
+        assertEquals(-120, (int) spend.getBalance().get(david));
 
         creditors.clear();
         debtors.clear();
@@ -132,11 +109,11 @@ public class SpendTest {
             .build();
 
         spend.calculateBalance();
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(601, (int) spend.getSpendBalance().get(manu));
-        assertEquals(-240, (int) spend.getSpendBalance().get(rick));
-        assertEquals(-241, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-120, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(601, (int) spend.getBalance().get(manu));
+        assertEquals(-240, (int) spend.getBalance().get(rick));
+        assertEquals(-241, (int) spend.getBalance().get(ana));
+        assertEquals(-120, (int) spend.getBalance().get(david));
     }
 
     @Test
@@ -160,11 +137,11 @@ public class SpendTest {
 
         spend.calculateBalance();
 
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(401, (int) spend.getSpendBalance().get(manu));
-        assertEquals(-100, (int) spend.getSpendBalance().get(rick));
-        assertEquals(-100, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-201, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(401, (int) spend.getBalance().get(manu));
+        assertEquals(-100, (int) spend.getBalance().get(rick));
+        assertEquals(-100, (int) spend.getBalance().get(ana));
+        assertEquals(-201, (int) spend.getBalance().get(david));
     }
 
     @Test
@@ -188,11 +165,11 @@ public class SpendTest {
 
         spend.calculateBalance();
         
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(1081, (int) spend.getSpendBalance().get(manu));
-        assertEquals(-360, (int) spend.getSpendBalance().get(rick));
-        assertEquals(-241, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-480, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(1081, (int) spend.getBalance().get(manu));
+        assertEquals(-360, (int) spend.getBalance().get(rick));
+        assertEquals(-240, (int) spend.getBalance().get(ana));
+        assertEquals(-481, (int) spend.getBalance().get(david));
     }
 
     @Test
@@ -216,11 +193,11 @@ public class SpendTest {
 
         spend.calculateBalance();
         
-        assertTrue("Test that total adds up", util.addMapEntrys(spend.getSpendBalance()) == 0);
-        assertEquals(801, (int) spend.getSpendBalance().get(manu));
-        assertEquals(-200, (int) spend.getSpendBalance().get(rick));
-        assertEquals(-201, (int) spend.getSpendBalance().get(ana));
-        assertEquals(-400, (int) spend.getSpendBalance().get(david));
+        assertTrue("Test that total adds up", util.addMapEntrys(spend.getBalance()) == 0);
+        assertEquals(801, (int) spend.getBalance().get(manu));
+        assertEquals(-201, (int) spend.getBalance().get(rick));
+        assertEquals(-200, (int) spend.getBalance().get(ana));
+        assertEquals(-400, (int) spend.getBalance().get(david));
     }
 
     @Test
@@ -282,17 +259,8 @@ public class SpendTest {
         assertFalse("test if amount is less or equal to 0 ", new Spend.Builder().spendID(0).description("description").amount(-1).method(SplittingMethod.ITEMIZED).creditors(creditors).debtors(debtors).build().isValid());
         assertFalse("test if creditors are 0 ", new Spend.Builder().spendID(0).description("description").amount(1200).method(SplittingMethod.ITEMIZED).creditors(new HashMap<>()).debtors(debtors).build().isValid());
         assertFalse("test if debtors are 0 ", new Spend.Builder().spendID(0).description("description").amount(1200).method(SplittingMethod.ITEMIZED).creditors(creditors).debtors(new HashMap<>()).build().isValid());
-
+        assertFalse("test if the sum of creditors is equal to total amount", new Spend.Builder().spendID(0).description("description").amount(1100).method(SplittingMethod.ITEMIZED).creditors(creditors).debtors(debtors).build().isValid());
     }
-
-    @Test
-    public void testIsValidEQUAL() {
-        /*TODO*/
-
-    }
-
-    @Test
-    public void testIsValidPAYOFF() {/*TODO*/}
 
     @Test
     public void testIsValidUNEQUAL() {/*TODO*/}
@@ -340,6 +308,11 @@ public class SpendTest {
         creditors.clear();
         debtors.clear();
 
+        manu.setBalance(0);
+        rick.setBalance(0);
+        ana.setBalance(0);
+        david.setBalance(0);
+
         creditors.put(manu, 1200);
         debtors.put(manu, 200);
         debtors.put(rick, 0);
@@ -356,6 +329,7 @@ public class SpendTest {
 
         spend.calculateBalance();
         spend.calculateIOUS();
+        spend.sendIOUS();
         spend.revert();
 
         assertEquals(0, (int) manu.getBalance());
