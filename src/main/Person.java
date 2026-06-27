@@ -44,14 +44,7 @@ public class Person {
     // Print for testing
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(name + " Balance: " + balance + "$\n");
-
-        for (Person person : balanceDetails.keySet()) {
-            sb.append(person.getName() + ": " + balanceDetails.get(person) + "\n");
-        }
-
-        return sb.toString();
+        return name;
     }
 
     // GETTERS & SETTERS

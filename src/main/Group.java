@@ -20,10 +20,20 @@ public class Group {
 
     public void addAction(Action a) {
         if (!a.isValid()) return;
-        history.add(a);
         a.calculateBalance();
         a.calculateIOUS();
         a.sendIOUS();
+        history.add(a);
+    }
+
+    public boolean revertLastAction() {
+        if (history.isEmpty()) {
+            return false;
+        }
+
+        Action lastAction = history.remove(history.size() - 1);
+        lastAction.revert();
+        return true;
     }
 
     public void simplifyDebts() {

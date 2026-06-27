@@ -2,6 +2,8 @@
 
 A simple Java project that models the core idea behind bill splitting apps like Splitwise. It demonstrates how to track people, expenses, and different splitting methods in a small command-line application, and includes a debt simplification step to reduce the number of transactions needed.
 
+I also end up making a GUI in Java Swing
+
 ## Features
 
 - Track people and shared expenses
@@ -12,13 +14,4 @@ A simple Java project that models the core idea behind bill splitting apps like 
 ## Built With
 
 - Java
-
-## Getting Started
-
-1. Clone the repository
-2. Compile the source files in the `src/` folder
-3. Run the `App` class
-
-## Notes
-
-This is a small, experimental project created for learning and practice.
+- Swing

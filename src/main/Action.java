@@ -37,6 +37,11 @@ abstract class Action {
         }
     }
 
+    public String summary() {
+        String base = getDescription() == null ? "Action" : getDescription();
+        return base + " • €" + getTotalAmount();
+    }
+
     /**
      * UnApply the IOUS balance, basicly an "undo" button
      * It's used when the transaction gets deleted or updated
